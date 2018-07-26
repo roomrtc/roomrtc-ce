@@ -3,7 +3,7 @@ RoomRTC Community Edition
 
 RoomRTC Community Edition (CE) is an open source end-to-end software development platform with built-in video conferencing, live streaming, desktop sharing, presenting, and more. Self-host RoomRTC CE on your own servers, in a container, or on a cloud provider.
 
-[![Join the chat at https://gitter.im/nodevn/kites](https://badges.gitter.im/nodevn/kites.svg)](https://gitter.im/nodevn/kites)
+[![Join the chat at https://gitter.im/roomrtc/roomrtc-ce](https://badges.gitter.im/roomrtc/roomrtc-ce.svg)](https://gitter.im/roomrtc/roomrtc-ce)
 
 Canonical source
 ================
