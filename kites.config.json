@@ -1,0 +1,39 @@
+{
+    "extensionsLocationCache": true,
+    "logger": {
+        "console": {
+            "transport": "console",
+            "level": "info"
+        }
+    },
+    "extensions": null,
+    "kites-api": {
+        "connection": "memory",
+        "dataSource": [{
+            "name": "memory",
+            "driver": "memory",
+            "active": true
+        }, {
+            "name": "mysql",
+            "driver": "mysql",
+            "host": "localhost",
+            "port": "3306",
+            "username": "root",
+            "password": "",
+            "database": "test",
+            "active": false,
+            "pool": true
+        }]
+    },
+    "express": {
+        "static": "./public",
+        "httpPort": 3000,
+        "poweredBy": "ERMJSC",
+        "views": {
+            "ext": "ejs",
+            "engine": "ejs",
+            "renderer": "renderFile",
+            "path": "content/views"
+        }
+    }
+}
