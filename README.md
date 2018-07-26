@@ -1,9 +1,14 @@
-Kites Template MVC
+RoomRTC Community Edition
 ==================
 
-Kites MVC - Assembling all into a complete ship.
+RoomRTC Community Edition (CE) is an open source end-to-end software development platform with built-in video conferencing, live streaming, desktop sharing, presenting, and more. Self-host RoomRTC CE on your own servers, in a container, or on a cloud provider.
 
 [![Join the chat at https://gitter.im/nodevn/kites](https://badges.gitter.im/nodevn/kites.svg)](https://gitter.im/nodevn/kites)
+
+Canonical source
+================
+
+The canonical source of RoomRTC Community Edition is hosted on [Github.com](https://github.com/roomrtc/roomrtc-ce).
 
 Installation
 ============
@@ -11,19 +16,7 @@ Installation
 Init project by clone the repository:
 
 ```bash
-git clone https://github.com/vunb/kites-template-mvc.git my-project
-cd my-project
-
-npm install
-npm start
-```
-
-Init project using `@kites/cli`:
-
-```bash
-npm install -g @kites/cli
-
-kites init my-project --template mvc
+git clone https://github.com/roomrtc/roomrtc-ce.git my-project
 cd my-project
 
 npm install
