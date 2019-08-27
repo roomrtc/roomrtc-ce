@@ -3,6 +3,8 @@ import Express from '@kites/express';
 import Rest from '@kites/rest';
 import { UserService } from './api';
 
+import { appRoutes } from './content/extensions/app-routes';
+
 async function bootstrap() {
   const app = await KitesFactory
     .create({
@@ -14,6 +16,7 @@ async function bootstrap() {
     })
     .use(Express)
     .use(Rest)
+    .use(appRoutes)
     .ready((kites: KitesInstance) => {
       kites.logger.info('Extra config app when ready!');
 

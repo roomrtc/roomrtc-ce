@@ -1,16 +1,14 @@
-var routes = require('../routes');
+import { KitesInstance } from '@kites/core';
+import { Express } from '@kites/express';
 
 /**
  * Routes management
  *
  * @param {kites} kites
  */
-module.exports = function (kites) {
-  kites.on('express:config', (app) => {
+function appRoutes(kites: KitesInstance) {
+  kites.on('express:config', (app: Express) => {
     kites.logger.info('Configure page views ...');
-
-    // config routes (advanced)
-    app.use(routes);
 
     // quick setup
     app.get('/', (req, res) => res.view('index'));
@@ -18,3 +16,7 @@ module.exports = function (kites) {
     app.get('/about', (req, res) => res.view('about'));
   });
 }
+
+export {
+  appRoutes,
+};
