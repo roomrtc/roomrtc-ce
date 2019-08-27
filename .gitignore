@@ -63,3 +63,6 @@ typings/
 # dev/prod environment
 dev.config.json
 prod.config.json
+
+# ide
+.vscode
