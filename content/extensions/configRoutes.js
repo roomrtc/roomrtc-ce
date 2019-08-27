@@ -2,19 +2,19 @@ var routes = require('../routes');
 
 /**
  * Routes management
- * 
- * @param {kites} kites 
+ *
+ * @param {kites} kites
  */
 module.exports = function (kites) {
-    kites.on('expressConfigure', (app) => {
-        kites.logger.info('Configure page views ...');
-        
-        // config routes (advanced)
-        app.use(routes);
+  kites.on('express:config', (app) => {
+    kites.logger.info('Configure page views ...');
 
-        // quick setup
-        app.get('/', (req, res) => res.view('index'));
-        app.get('/admin', (req, res) => res.view('admin'));
-        app.get('/about', (req, res) => res.view('about'));
-    });
+    // config routes (advanced)
+    app.use(routes);
+
+    // quick setup
+    app.get('/', (req, res) => res.view('index'));
+    app.get('/admin', (req, res) => res.view('admin'));
+    app.get('/about', (req, res) => res.view('about'));
+  });
 }
