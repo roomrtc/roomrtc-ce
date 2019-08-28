@@ -66,3 +66,6 @@ prod.config.json
 
 # ide
 .vscode
+
+# roomrtc
+uploads
