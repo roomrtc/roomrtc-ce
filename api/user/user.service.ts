@@ -1,7 +1,13 @@
-import { Injectable } from '@kites/common';
+import { Injectable, Inject } from '@kites/common';
+import { UserModel } from '../models';
+import { KITES_INSTANCE, KitesInstance } from '@kites/core';
 
 @Injectable()
 export class UserService {
+
+  constructor(
+    @Inject(KITES_INSTANCE) private kites: KitesInstance,
+  ) {}
 
   public getAll(): string {
     return 'Get all user!!!';
@@ -12,8 +18,16 @@ export class UserService {
     return { _id: Date.now(), ...user };
   }
 
-  public get(speaker: string, id: string) {
-    return `Get details: ${id}`;
+  async get(username: string) {
+    let user = await UserModel.findOne({ username });
+    if (!user) {
+      this.kites.logger.info('Create new user: ' + username);
+      user = await UserModel.create({ username });
+    }
+
+    this.kites.logger.info('Get details: ' + username);
+
+    return user;
   }
 
   public update(user: string) {

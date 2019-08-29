@@ -4,6 +4,7 @@ import { KitesInstance } from '@kites/core';
 
 /**
  * Start mongodb server for development
+ * And emit db:connect event with connection string or null
  *
  * @param {kites} kites
  */
@@ -46,10 +47,18 @@ async function MongoDbServerDev(kites: KitesInstance) {
         + dbName: ${dbNameStr}
     `);
 
+    // Emit connection string
+    kites.emit('db:connect', uri, kites);
+
+    /**
+     * Application stop!
+     */
     kites.on('stop', async () => {
       // you may stop mongod manually
       await mongod.stop();
     });
+  } else {
+    kites.emit('db:connect', null, kites);
   }
 }
 
