@@ -68,4 +68,5 @@ prod.config.json
 .vscode
 
 # roomrtc
+.mdb
 uploads

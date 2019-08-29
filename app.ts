@@ -3,7 +3,7 @@ import Express from '@kites/express';
 import Rest from '@kites/rest';
 import { UserService } from './api';
 
-import { appRoutes } from './content/extensions/app-routes';
+import { MongoDbServerDev, appRoutes } from './content/extensions';
 
 async function bootstrap() {
   const app = await KitesFactory
@@ -17,6 +17,7 @@ async function bootstrap() {
     .use(Express)
     .use(Rest)
     .use(appRoutes)
+    .use(MongoDbServerDev)
     .ready((kites: KitesInstance) => {
       kites.logger.info('Extra config app when ready!');
 
