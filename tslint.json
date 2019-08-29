@@ -8,6 +8,7 @@
   },
   "rules": {
     "no-console": false,
+    "no-empty": false,
     "quotemark": [
       true,
       "single"

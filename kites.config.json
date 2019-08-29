@@ -8,12 +8,22 @@
   },
   "extensions": null,
   "db": {
-    "connection": "memory",
-    "dataSource": [{
-      "name": "memory",
-      "driver": "memory",
-      "active": true
-    }]
+    "connection": "mongodb-memory",
+    "dbName": "roomrtc",
+    "dataSource": [
+      {
+        "name": "memory",
+        "driver": "memory",
+        "active": true
+      },
+      {
+        "name": "mongodb-memory",
+        "driver": "mongodb-memory-server",
+        "port": "27071",
+        "version": "4.0.3",
+        "active": true
+      }
+    ]
   },
   "express": {
     "static": "./public",
