@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@kites/common';
-import { UserModel } from '../models';
+import { UserModel, User } from '../models';
 import { KITES_INSTANCE, KitesInstance } from '@kites/core';
 
 @Injectable()
@@ -7,22 +7,26 @@ export class UserService {
 
   constructor(
     @Inject(KITES_INSTANCE) private kites: KitesInstance,
-  ) {}
+  ) { }
 
   public getAll(): string {
     return 'Get all user!!!';
   }
 
-  public create(user: any) {
-    console.log('Create user: ', user);
-    return { _id: Date.now(), ...user };
+  create(user: User) {
+    if (!user || !user.username) {
+      throw new Error('User is required: username!');
+    }
+    this.kites.logger.info('Create new user: ' + user.username);
+    return UserModel.create(user);
   }
 
   async get(username: string) {
-    let user = await UserModel.findOne({ username });
+    let user: User = await UserModel.findOne({ username });
     if (!user) {
-      this.kites.logger.info('Create new user: ' + username);
-      user = await UserModel.create({ username });
+      user = new User();
+      user.username = username;
+      user = await this.create(user);
     }
 
     this.kites.logger.info('Get details: ' + username);
