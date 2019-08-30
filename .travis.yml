@@ -1,0 +1,31 @@
+language: node_js
+
+git:
+  depth: 5
+
+before_install:
+  # show product version
+  - npm i -g npm@latest
+  - nvm --version
+  - node --version
+  - npm --version
+
+install:
+  - npm ci
+
+jobs:
+  include:
+    - state: "Test"
+      name: "Unit Test Node v12"
+      script: npm test
+      node_js: 12
+
+    - state: "Test"
+      name: "Unit Test Node v10"
+      script: npm test
+      node_js: 10
+
+    - state: "Test"
+      name: "Unit Test Node v8"
+      script: npm test
+      node_js: 8
