@@ -14,6 +14,12 @@ function appRoutes(kites: KitesInstance) {
     app.get('/', (req, res) => res.view('index'));
     app.get('/admin', (req, res) => res.view('admin'));
     app.get('/about', (req, res) => res.view('about'));
+
+    // error handler
+    app.use((err, req, res, next) => {
+      kites.logger.error('Error: ', err);
+      res.status(500).json(err.message);
+    });
   });
 }
 
