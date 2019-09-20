@@ -10,13 +10,12 @@ async function bootstrap() {
   const app = await KitesFactory
     .create({
       loadConfig: true,
+      discover: true,
       providers: [
         UserService,
         // TextService,
       ],
     })
-    .use(Express)
-    .use(Rest)
     .use(appRoutes)
     .use(MongoDbServerDev)
     .on('db:connect', (uri: string, kites: KitesInstance) => {
