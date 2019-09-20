@@ -6,7 +6,7 @@ import { Express } from '@kites/express';
  *
  * @param {kites} kites
  */
-function appRoutes(kites: KitesInstance) {
+function AppRoutes(kites: KitesInstance) {
   kites.on('express:config', (app: Express) => {
     kites.logger.info('Configure page views ...');
 
@@ -24,5 +24,5 @@ function appRoutes(kites: KitesInstance) {
 }
 
 export {
-  appRoutes,
+  AppRoutes,
 };

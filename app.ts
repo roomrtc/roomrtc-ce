@@ -1,10 +1,8 @@
 import { KitesFactory, KitesInstance } from '@kites/core';
-import Express from '@kites/express';
-import Rest from '@kites/rest';
 import { UserService } from './api';
 
 import * as mongoose from 'mongoose';
-import { MongoDbServerDev, appRoutes } from './content/extensions';
+import { MongoDbServerDev, AppRoutes, MediaServer } from './extensions';
 
 async function bootstrap() {
   const app = await KitesFactory
@@ -16,7 +14,8 @@ async function bootstrap() {
         // TextService,
       ],
     })
-    .use(appRoutes)
+    .use(AppRoutes)
+    .use(MediaServer)
     .use(MongoDbServerDev)
     .on('db:connect', (uri: string, kites: KitesInstance) => {
       if (typeof uri === 'string') {
