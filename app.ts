@@ -1,7 +1,7 @@
 import { KitesFactory, KitesInstance } from '@kites/core';
 import { UserService } from './api';
 
-import * as mongoose from 'mongoose';
+import mongoose from 'mongoose';
 import { MongoDbServerDev, AppRoutes, MediaServer } from './extensions';
 
 async function bootstrap() {
