@@ -21,7 +21,7 @@ class Counter extends React.Component<{}, CounterState> {
         <h1>counter at: {this.state.counter}</h1>
         <button
           onClick={() => this.incrementCounter()}
-        />
+        >Click me</button>
       </div>
     );
   }
