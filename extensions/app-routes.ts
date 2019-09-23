@@ -1,7 +1,6 @@
 import { KitesInstance } from '@kites/core';
 import { Express } from '@kites/express';
 
-import hbs from 'handlebars';
 import { renderToString } from 'react-dom/server';
 import React from 'react';
 
@@ -43,6 +42,14 @@ function AppRoutes(kites: KitesInstance) {
       kites.logger.error('Error: ', err);
       res.status(500).json(err.message);
     });
+  });
+
+  /**
+   * Cấu hình file tĩnh
+   */
+  kites.on('express:config:static', async (app: Express) => {
+    const e = await import('express');
+    app.use(e.static('build'));
   });
 }
 

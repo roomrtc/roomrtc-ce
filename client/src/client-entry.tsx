@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import Counter from './containers/counter';
 
-ReactDOM.render(
+ReactDOM.hydrate(
   <Counter />,
   document.getElementById('app'),
 );
