@@ -69,4 +69,6 @@ prod.config.json
 
 # roomrtc
 .mdb
+dist
+build
 uploads
