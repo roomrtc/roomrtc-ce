@@ -8,11 +8,12 @@ import { KitesInstance } from '@kites/core';
  *
  * @param {kites} kites
  */
-async function MongoDbServerDev(kites: KitesInstance) {
+async function GetDbConnection(kites: KitesInstance) {
+  const { connection, dbName, dataSource } = kites.options.db;
+  const options = dataSource.find(x => x.name === connection);
+
   if (kites.options.env === 'development') {
     const { MongoMemoryServer } = await import('mongodb-memory-server');
-    const { connection, dbName, dataSource } = kites.options.db;
-    const options = dataSource.find(x => x.name === connection);
     const mkdirAsync = promisify(mkdir);
     const dbPath = kites.options.appDirectory + '/.mdb';
 
@@ -58,10 +59,11 @@ async function MongoDbServerDev(kites: KitesInstance) {
       await mongod.stop();
     });
   } else {
-    kites.emit('db:connect', null, kites);
+    const uri = (options && options.uri);
+    kites.emit('db:connect', uri, kites);
   }
 }
 
 export {
-  MongoDbServerDev,
+  GetDbConnection,
 };

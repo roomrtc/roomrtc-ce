@@ -1,8 +1,8 @@
 import { KitesFactory, KitesInstance } from '@kites/core';
-import { UserService } from './api';
+import { UserService, User } from './api';
 
 import mongoose from 'mongoose';
-import { MongoDbServerDev, AppRoutes, MediaServer } from './extensions';
+import { GetDbConnection, AppRoutes, MediaServer } from './extensions';
 
 async function bootstrap() {
   const app = await KitesFactory
@@ -16,14 +16,23 @@ async function bootstrap() {
     })
     .use(AppRoutes)
     .use(MediaServer)
-    .use(MongoDbServerDev)
-    .on('db:connect', (uri: string, kites: KitesInstance) => {
-      if (typeof uri === 'string') {
-        mongoose.connect(uri, { useNewUrlParser: true });
-        kites.logger.info('Mongodb connect ok: ' + uri);
-      } else {
-        // get connection string from kites.config
+    .use(GetDbConnection)
+    .on('db:connect', async (uri: string, kites: KitesInstance) => {
+      if (typeof uri === 'undefined') {
         kites.logger.error('Please config mongodb connection!!!');
+        return;
+      }
+
+      mongoose.connect(uri, { useNewUrlParser: true });
+      kites.logger.info('Mongodb connect ok: ' + uri);
+
+      if (kites.options.env === 'development') {
+        const vUser = new User();
+        vUser.username = 'admin';
+        vUser.password = 'admin';
+        const svUser = kites.container.inject(UserService);
+        const vResult = await svUser.create(vUser);
+        kites.logger.info('Add default admin user for testing!' + vResult);
       }
     })
     .init();

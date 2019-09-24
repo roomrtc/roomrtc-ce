@@ -9,8 +9,9 @@ export class UserService {
     @Inject(KITES_INSTANCE) private kites: KitesInstance,
   ) { }
 
-  public getAll(): string {
-    return 'Get all user!!!';
+  async getAll() {
+    const vUsers = await UserModel.find().skip(0).limit(10);
+    return vUsers;
   }
 
   create(user: User) {
@@ -22,14 +23,11 @@ export class UserService {
   }
 
   async get(username: string) {
-    let user: User = await UserModel.findOne({ username });
-    if (!user) {
-      user = new User();
-      user.username = username;
-      user = await this.create(user);
-    }
-
     this.kites.logger.info('Get details: ' + username);
+    const user: User = await UserModel.findOne({ username });
+    if (!user) {
+      throw new Error('User not found: ' + username);
+    }
 
     return user;
   }
