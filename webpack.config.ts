@@ -29,8 +29,8 @@ const client = Object.assign({}, config, {
   target: 'web',
   entry: path.resolve(__dirname, 'client/src/client-entry.tsx'),
   output: {
-    filename: 'client.js',
-    path: path.resolve(__dirname, 'build/assets'),
+    filename: 'app.js',
+    path: path.resolve(__dirname, 'build/client'),
   },
 });
 
@@ -40,8 +40,8 @@ const server = Object.assign({}, config, {
   externals: [nodeExternals()],
   entry: path.resolve(__dirname, 'app.ts'),
   output: {
-    filename: 'server.js',
-    path: path.resolve(__dirname, 'build'),
+    filename: 'app.js',
+    path: path.resolve(__dirname, 'build/server'),
   },
 });
 

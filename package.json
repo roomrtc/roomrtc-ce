@@ -5,8 +5,9 @@
   "scripts": {
     "test": "mocha",
     "start": "cross-env NODE_ENV=development webpack --watch",
-    "start:server": "nodemon build/server.js",
+    "start:server": "nodemon build/server/app.js",
     "start:prod": "node dist/app.js",
+    "clean": "rimraf -rf build dist",
     "build": "webpack"
   },
   "repository": {
@@ -45,6 +46,7 @@
     "mocha": "^6.2.0",
     "mongodb-memory-server": "^5.2.0",
     "nodemon": "^1.19.2",
+    "rimraf": "^3.0.0",
     "ts-loader": "^6.1.2",
     "ts-node": "^8.4.1",
     "tslint": "^5.18.0",

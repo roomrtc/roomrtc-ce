@@ -8,7 +8,7 @@ const html = ({ body }: { body: string }) => `
     <body style="margin:0">
       <div id="app">${body}</div>
     </body>
-    <script src="/assets/client.js" defer></script>
+    <script src="/app.js" defer></script>
   </html>
 `;
 

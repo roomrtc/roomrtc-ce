@@ -29,6 +29,7 @@ function AppRoutes(kites: KitesInstance) {
       // const htmlToSend = hbsTemplate({ reactele: reactComp, version: React.version });
       const e = React.createElement(Counter);
       const body = renderToString(e);
+      kites.logger.debug('Render channel: ' + body);
 
       res.send(
         html({
@@ -49,7 +50,7 @@ function AppRoutes(kites: KitesInstance) {
    */
   kites.on('express:config:static', async (app: Express) => {
     const e = await import('express');
-    app.use(e.static('build'));
+    app.use(e.static('build/client'));
   });
 }
 
