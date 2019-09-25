@@ -50,7 +50,7 @@
         "rtcp"
       ]
     },
-    "router": {
+    "routerOptions": {
       "mediaCodecs": [{
           "kind": "audio",
           "mimeType": "audio/opus",
@@ -67,7 +67,7 @@
         }
       ]
     },
-    "webRtcTransport": {
+    "webRtcTransportOptions": {
       "listenIps": [{
         "ip": "127.0.0.1",
         "announcedIp": null

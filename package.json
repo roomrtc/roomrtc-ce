@@ -64,10 +64,15 @@
     "@kites/core": "^1.1.8",
     "@kites/express": "^1.1.8",
     "@kites/rest": "^1.1.8",
+    "@sitespeed.io/throttle": "^0.5.4",
+    "awaitqueue": "^1.0.0",
+    "dgram": "^1.0.1",
     "jsonwebtoken": "^8.5.1",
+    "mediasoup": "^3.2.5",
     "mkdirp": "^0.5.1",
     "mongoose": "^5.6.11",
     "multer": "^1.4.2",
+    "protoo-server": "^4.0.3",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-jss": "^10.0.0",
@@ -76,6 +81,7 @@
     "redux": "^4.0.4",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.5.2",
+    "sctp": "0.0.18",
     "typegoose": "^5.9.0"
   }
 }
