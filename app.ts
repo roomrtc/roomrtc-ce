@@ -31,8 +31,8 @@ async function bootstrap() {
         vUser.username = 'admin';
         vUser.password = 'admin';
         const svUser = kites.container.inject(UserService);
-        const vResult = await svUser.create(vUser);
-        kites.logger.info('Add default admin user for testing!' + vResult);
+        await svUser.create(vUser);
+        kites.logger.info('Add default admin(todo:hash) user for testing!');
       }
     })
     .init();

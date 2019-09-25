@@ -56,6 +56,9 @@
     "webpack-node-externals": "^1.7.2",
     "webpack-shell-plugin": "^0.5.0"
   },
+  "peerDependencies": {
+    "mediasoup": "^3.2.5"
+  },
   "dependencies": {
     "@kites/common": "^1.1.8",
     "@kites/core": "^1.1.8",
