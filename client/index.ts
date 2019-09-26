@@ -1,1 +1,1 @@
-export * from './src/containers/counter';
+export * from './src/lib/app';

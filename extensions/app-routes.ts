@@ -4,8 +4,7 @@ import { Express } from '@kites/express';
 import { renderToString } from 'react-dom/server';
 import React from 'react';
 
-// import { TMPL_CONFERENCE_INDEX } from './data/react-template';
-import Counter from '../client/src/containers/counter';
+import App from '../client/src/lib/app';
 import html from './templates/html-conference';
 
 /**
@@ -22,14 +21,11 @@ function AppRoutes(kites: KitesInstance) {
     app.get('/admin', (req, res) => res.view('admin'));
     app.get('/about', (req, res) => res.view('about'));
 
-    // channel or conference room
-    app.get('/channel/:id', (req, res) => {
-      // const hbsTemplate = hbs.compile(TMPL_CONFERENCE_INDEX);
-      // const reactComp = renderToString(React.createElement(Counter));
-      // const htmlToSend = hbsTemplate({ reactele: reactComp, version: React.version });
-      const e = React.createElement(Counter);
+    // live channel or conference room
+    app.get('/live/:channel', (req, res) => {
+      const e = React.createElement(App);
       const body = renderToString(e);
-      kites.logger.debug('Render channel: ' + body);
+      kites.logger.debug('Render live channel: ' + body);
 
       res.send(
         html({

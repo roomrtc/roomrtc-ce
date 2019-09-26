@@ -4,7 +4,10 @@ export interface CounterState {
   counter: number;
 }
 
-class Counter extends React.Component<{}, CounterState> {
+/**
+ * Live channel
+ */
+class App extends React.Component<{}, CounterState> {
 
   constructor(props: any) {
     super(props);
@@ -27,4 +30,4 @@ class Counter extends React.Component<{}, CounterState> {
   }
 }
 
-export default Counter;
+export default App;
