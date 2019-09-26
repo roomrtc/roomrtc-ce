@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './lib/app';
+import App from './app';
 
 ReactDOM.hydrate(
   <App />,

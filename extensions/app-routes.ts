@@ -4,7 +4,7 @@ import { Express } from '@kites/express';
 import { renderToString } from 'react-dom/server';
 import React from 'react';
 
-import App from '../client/src/lib/app';
+import App from '../client/src/app';
 import html from './templates/html-conference';
 
 /**

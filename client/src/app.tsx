@@ -1,5 +1,16 @@
 import React from 'react';
-import Logger from './logger';
+import { Provider } from 'react-redux';
+import {
+  applyMiddleware as applyReduxMiddleware,
+  createStore as createReduxStore,
+} from 'redux';
+import thunk from 'redux-thunk';
+import UrlParse from 'url-parse';
+import * as utils from './lib/utils';
+
+import Logger from './lib/logger';
+import deviceInfo from './lib/device-info';
+import { GetRandomName, GetRandomString } from './lib/random-string';
 
 const logger = new Logger('App');
 
