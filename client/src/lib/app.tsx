@@ -1,13 +1,21 @@
 import React from 'react';
+import Logger from './logger';
 
-export interface CounterState {
+const logger = new Logger('App');
+
+export interface AppState {
   counter: number;
+}
+
+export interface AppProps {
+  [key: string]: any;
+  title?: string;
 }
 
 /**
  * Live channel
  */
-class App extends React.Component<{}, CounterState> {
+class App extends React.Component<AppProps, AppState> {
 
   constructor(props: any) {
     super(props);
@@ -16,6 +24,7 @@ class App extends React.Component<{}, CounterState> {
 
   incrementCounter() {
     this.setState({ counter: this.state.counter + 1 });
+    logger.debug('current: ' + this.state.counter);
   }
 
   render() {
