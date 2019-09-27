@@ -11,7 +11,7 @@ import { getDebugLogger } from '@kites/core/logger';
 
 import { Bot } from './bot';
 
-const logger = getDebugLogger('RoomRTC:Room');
+const logger = getDebugLogger('roomrtc:Room');
 
 /**
  * Room class.
@@ -108,14 +108,14 @@ class Room extends EventEmitter {
   private plainRtpTransportOptions: any;
 
   constructor({
-      roomId,
-      protooRoom,
-      mediasoupRouter,
-      audioLevelObserver,
-      bot,
-      webRtcTransportOptions,
-      plainRtpTransportOptions,
-    }) {
+    roomId,
+    protooRoom,
+    mediasoupRouter,
+    audioLevelObserver,
+    bot,
+    webRtcTransportOptions,
+    plainRtpTransportOptions,
+  }) {
     super();
     this.setMaxListeners(Infinity);
 
@@ -1343,7 +1343,7 @@ class Room extends EventEmitter {
   /**
    * Helper to get the list of joined protoo peers.
    */
-  _getJoinedPeers(exclude?: {excludePeer: any}) {
+  _getJoinedPeers(exclude?: { excludePeer: any }) {
     const { excludePeer } = exclude;
     return this.protooRoom.peers
       .filter((peer) => peer.data.joined && peer !== excludePeer);

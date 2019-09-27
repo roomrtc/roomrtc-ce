@@ -12,6 +12,7 @@ before_install:
 
 install:
   - npm ci
+  - npm run install:peers
 
 jobs:
   include:
