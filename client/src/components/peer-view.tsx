@@ -26,9 +26,10 @@ export default class PeerView extends React.Component {
   constructor(props) {
     super(props);
 
+    const isShowInfo = window.SHOW_INFO || false;
     this.state = {
       audioVolume: 0, // Integer from 0 to 10.,
-      showInfo: window.SHOW_INFO || false,
+      showInfo: isShowInfo,
       videoResolutionWidth: null,
       videoResolutionHeight: null,
       videoCanPlay: false,
@@ -96,51 +97,51 @@ export default class PeerView extends React.Component {
         <div className='info'>
           <div className='icons'>
             <div
-              className={classnames('icon', 'info', {on: showInfo})}
+              className={classnames('icon', 'info', { on: showInfo })}
               onClick={() => this.setState({
-              showInfo: !showInfo,
-            })}/>
+                showInfo: !showInfo,
+              })} />
 
             <div
               className={classnames('icon', 'stats')}
-              onClick={() => onStatsClick(peer.id)}/>
+              onClick={() => onStatsClick(peer.id)} />
           </div>
         </div>
 
         <video
           ref='videoElem'
           className={classnames({
-          'is-me': isMe,
-          'hidden': !videoVisible || !videoCanPlay,
-          'network-error': (videoVisible && videoMultiLayer && consumerCurrentSpatialLayer === null),
-        })}
+            'is-me': isMe,
+            'hidden': !videoVisible || !videoCanPlay,
+            'network-error': (videoVisible && videoMultiLayer && consumerCurrentSpatialLayer === null),
+          })}
           autoPlay
           muted
-          controls={false}/>
+          controls={false} />
 
-        <audio ref='audioElem' autoPlay muted={isMe || audioMuted} controls={false}/>
+        <audio ref='audioElem' autoPlay muted={isMe || audioMuted} controls={false} />
 
-        <canvas ref='canvas' className={classnames('face-detection', {'is-me': isMe})}/>
+        <canvas ref='canvas' className={classnames('face-detection', { 'is-me': isMe })} />
 
         <div className='volume-container'>
-          <div className={classnames('bar', `level${audioVolume}`)}/>
+          <div className={classnames('bar', `level${audioVolume}`)} />
         </div>
 
         {videoVisible && videoScore < 5 && (
           <div className='spinner-container'>
-          <Spinner/>
+            <Spinner />
           </div>
         )}
 
         {videoElemPaused && (
-          <div className='video-elem-paused'/>
+          <div className='video-elem-paused' />
         )}
       </div>
     );
   }
 
   componentDidMount() {
-    const {audioTrack, videoTrack} = this.props as any;
+    const { audioTrack, videoTrack } = this.props as any;
 
     this._setTracks(audioTrack, videoTrack);
   }
@@ -165,23 +166,23 @@ export default class PeerView extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {isMe, audioTrack, videoTrack, videoRtpParameters} = nextProps;
+    const { isMe, audioTrack, videoTrack, videoRtpParameters } = nextProps;
 
-    const {maxSpatialLayer} = this.state as any;
+    const { maxSpatialLayer } = this.state as any;
 
     if (isMe && videoRtpParameters && maxSpatialLayer === null) {
       this.setState({
         maxSpatialLayer: videoRtpParameters.encodings.length - 1,
       });
     } else if (isMe && !videoRtpParameters && maxSpatialLayer !== null) {
-      this.setState({maxSpatialLayer: null});
+      this.setState({ maxSpatialLayer: null });
     }
 
     this._setTracks(audioTrack, videoTrack);
   }
 
   _setTracks(audioTrack, videoTrack) {
-    const {faceDetection} = this.props as any;
+    const { faceDetection } = this.props as any;
 
     if (this._audioTrack === audioTrack && this._videoTrack === videoTrack) {
       return;
@@ -202,7 +203,7 @@ export default class PeerView extends React.Component {
       this._stopFaceDetection();
     }
 
-    const {audioElem, videoElem} = this.refs as any;
+    const { audioElem, videoElem } = this.refs as any;
 
     if (audioTrack) {
       const stream = new MediaStream();
@@ -225,17 +226,17 @@ export default class PeerView extends React.Component {
       stream.addTrack(videoTrack);
       videoElem.srcObject = stream;
 
-      videoElem.oncanplay = () => this.setState({videoCanPlay: true});
+      videoElem.oncanplay = () => this.setState({ videoCanPlay: true });
 
       videoElem.onplay = () => {
-        this.setState({videoElemPaused: false});
+        this.setState({ videoElemPaused: false });
 
         audioElem
           .play()
           .catch((error) => logger.warn('audioElem.play() failed:%o', error));
       };
 
-      videoElem.onpause = () => this.setState({videoElemPaused: true});
+      videoElem.onpause = () => this.setState({ videoElemPaused: true });
 
       videoElem
         .play()
@@ -256,7 +257,7 @@ export default class PeerView extends React.Component {
       throw new Error('_runHark() | given stream has no audio track');
     }
 
-    this._hark = hark(stream, {play: false});
+    this._hark = hark(stream, { play: false });
 
     // eslint-disable-next-line no-unused-vars
     this
@@ -273,18 +274,18 @@ export default class PeerView extends React.Component {
         }
 
         if (audioVolume !== (this.state as any).audioVolume) {
-          this.setState({audioVolume});
+          this.setState({ audioVolume });
         }
       });
   }
 
   _startVideoResolution() {
     this._videoResolutionPeriodicTimer = setInterval(() => {
-      const {videoResolutionWidth, videoResolutionHeight} = this.state as any;
-      const {videoElem} = this.refs as any;
+      const { videoResolutionWidth, videoResolutionHeight } = this.state as any;
+      const { videoElem } = this.refs as any;
 
       if (videoElem.videoWidth !== videoResolutionWidth || videoElem.videoHeight !== videoResolutionHeight) {
-        this.setState({videoResolutionWidth: videoElem.videoWidth, videoResolutionHeight: videoElem.videoHeight});
+        this.setState({ videoResolutionWidth: videoElem.videoWidth, videoResolutionHeight: videoElem.videoHeight });
       }
     }, 500);
   }
@@ -292,7 +293,7 @@ export default class PeerView extends React.Component {
   _stopVideoResolution() {
     clearInterval(this._videoResolutionPeriodicTimer);
 
-    this.setState({videoResolutionWidth: null, videoResolutionHeight: null});
+    this.setState({ videoResolutionWidth: null, videoResolutionHeight: null });
   }
 
   _startFaceDetection() {
@@ -337,7 +338,7 @@ export default class PeerView extends React.Component {
   _stopFaceDetection() {
     cancelAnimationFrame(this._faceDetectionRequestAnimationFrame);
 
-    const {canvas} = this.refs as any;
+    const { canvas } = this.refs as any;
 
     canvas.width = 0;
     canvas.height = 0;

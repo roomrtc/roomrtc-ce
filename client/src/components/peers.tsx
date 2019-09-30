@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import * as appPropTypes from './app-prop-types';
 import {Appear} from './transitions';
-import Peer from './Peer';
+import Peer from './peer';
 
 const Peers = ({peers, activeSpeakerId}) => {
   return (

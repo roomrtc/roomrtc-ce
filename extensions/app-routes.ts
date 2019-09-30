@@ -1,11 +1,11 @@
 import { KitesInstance } from '@kites/core';
 import { Express } from '@kites/express';
 
-import { renderToString } from 'react-dom/server';
-import React from 'react';
+// import { renderToString } from 'react-dom/server';
+// import React from 'react';
 
-import App from '../client/src/app';
-import html from './templates/html-conference';
+// import App from '../client/src/app';
+// import html from './templates/html-conference';
 
 /**
  * Routes management
@@ -23,15 +23,17 @@ function AppRoutes(kites: KitesInstance) {
 
     // live channel or conference room
     app.get('/live/:channel', (req, res) => {
-      const e = React.createElement(App);
-      const body = renderToString(e);
-      kites.logger.debug('Render live channel: ' + body);
 
-      res.send(
-        html({
-          body,
-        }),
-      );
+      res.view('live');
+      // const e = React.createElement(App);
+      // const body = renderToString(e);
+      // kites.logger.debug('Render live channel: ' + body);
+
+      // res.send(
+      //   html({
+      //     body,
+      //   }),
+      // );
     });
 
     // error handler

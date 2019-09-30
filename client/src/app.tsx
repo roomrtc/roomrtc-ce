@@ -20,7 +20,7 @@ import reducers from './redux/reducers';
 import Room from './components/room';
 
 const logger = new Logger('App');
-const reduxMiddlewares = [ thunk ];
+const reduxMiddlewares = [thunk];
 
 let roomClient;
 const store = createReduxStore(
@@ -59,7 +59,8 @@ class App extends React.Component<AppProps, AppState> {
 
   render() {
     logger.debug('run() [environment:%s]', process.env.NODE_ENV);
-    const urlParser = new UrlParse(window.location.href, true);
+    const endPoint = window.location.href;
+    const urlParser = new UrlParse(endPoint, true);
     const peerId = GetRandomString();
     let roomId = urlParser.query.roomId;
     let displayName =
@@ -97,7 +98,8 @@ class App extends React.Component<AppProps, AppState> {
     }
 
     // Get the effective/shareable Room URL.
-    const roomUrlParser = new UrlParse(window.location.href, true);
+    const wsEndPoint = window.location.href;
+    const roomUrlParser = new UrlParse(wsEndPoint, true);
 
     for (const key of Object.keys(roomUrlParser.query)) {
       // Don't keep some custom params.
