@@ -61,6 +61,7 @@
     "mongodb-memory-server": "^5.2.0",
     "nib": "^1.1.2",
     "nodemon": "^1.19.2",
+    "nodemon-webpack-plugin": "^4.1.1",
     "npm-install-peers": "^1.2.1",
     "prop-types": "^15.7.2",
     "react-spinner": "^0.2.7",
@@ -76,8 +77,7 @@
     "url-parse": "^1.4.7",
     "webpack": "^4.40.2",
     "webpack-cli": "^3.3.9",
-    "webpack-node-externals": "^1.7.2",
-    "webpack-shell-plugin": "^0.5.0"
+    "webpack-node-externals": "^1.7.2"
   },
   "peerDependencies": {
     "mediasoup": "^3.2.5"

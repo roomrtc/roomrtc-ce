@@ -1,15 +1,12 @@
-import webpack from 'webpack';
 import path from 'path';
+import webpack from 'webpack';
 import nodeExternals from 'webpack-node-externals';
-import WebpackShellPlugin from 'webpack-shell-plugin';
+import NodemonPlugin from 'nodemon-webpack-plugin';
 
 const config = {
   mode: 'development',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new WebpackShellPlugin({
-      onBuildEnd: ['npm run start:server'],
-    }),
   ],
   module: {
     rules: [{
@@ -43,6 +40,10 @@ const server = Object.assign({}, config, {
     filename: 'app.js',
     path: path.resolve(__dirname, 'build/server'),
   },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new NodemonPlugin(),
+  ],
 });
 
 module.exports = [client, server];

@@ -34,7 +34,8 @@ async function runMediasoupWorkers(kites: KitesInstance, config: any) {
   const numWorkers = config.numWorkers || cpus().length;
   const { logLevel, logTags, rtcMinPort, rtcMaxPort } = config.worker;
 
-  const mediasoup = await import('mediasoup');
+  const libmediasoup = 'mediasoup';
+  const mediasoup = await import(libmediasoup);
   kites.logger.info('Running (%d) mediasoup workers ...', numWorkers);
 
   for (let i = 0; i < numWorkers; i++) {
