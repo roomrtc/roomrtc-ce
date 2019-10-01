@@ -5,5 +5,5 @@ import App from './app';
 
 ReactDOM.hydrate(
   <App />,
-  document.getElementById('app'),
+  document.getElementById('roomrtc-app-container'),
 );

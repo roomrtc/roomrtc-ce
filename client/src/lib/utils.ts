@@ -3,7 +3,7 @@ let mediaQueryDetectorElem;
 export function initialize() {
   // Media query detector stuff.
   mediaQueryDetectorElem =
-    document.getElementById('app-media-query-detector');
+    document.getElementById('roomrtc-app-media-query-detector');
 
   return Promise.resolve(mediaQueryDetectorElem);
 }
