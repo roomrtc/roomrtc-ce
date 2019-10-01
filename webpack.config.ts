@@ -2,6 +2,7 @@ import path from 'path';
 import webpack from 'webpack';
 import nodeExternals from 'webpack-node-externals';
 import NodemonPlugin from 'nodemon-webpack-plugin';
+import statements from 'tsx-control-statements';
 
 const config = {
   mode: 'development',
@@ -28,6 +29,16 @@ const client = Object.assign({}, config, {
   output: {
     filename: 'app.js',
     path: path.resolve(__dirname, 'build/client'),
+  },
+  module: {
+    rules: [{
+      test: /\.tsx?$/,
+      loader: 'ts-loader',
+      // loader: 'awesome-typescript-loader',
+      options: {
+        getCustomTransformers: () => ({ before: [statements()] }),
+      },
+    }],
   },
 });
 

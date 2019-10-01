@@ -11,9 +11,9 @@ import {Appear} from './transitions';
 import Me from './me';
 // import ChatInput from './ChatInput';
 import Peers from './peers';
-// import Stats from './Stats';
+import Stats from './stats';
 import Notifications from './notifications';
-// import NetworkThrottle from './NetworkThrottle';
+import NetworkThrottle from './network-throttle';
 
 class Room extends React.Component {
   static propTypes: any;
@@ -87,11 +87,11 @@ class Room extends React.Component {
               onClick={() => roomClient.restartIce()}/>
           </div>
 
-          {/* <Stats/> */}
-{/*
-          <If condition={window.NETWORK_THROTTLE_SECRET}>
-            <NetworkThrottle secret={window.NETWORK_THROTTLE_SECRET}/>
-          </If> */}
+          <Stats/>
+
+           {window.NETWORK_THROTTLE_SECRET && (
+             <NetworkThrottle secret={window.NETWORK_THROTTLE_SECRET}/>
+           )}
 
           <ReactTooltip
             type='light'

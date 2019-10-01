@@ -84,11 +84,13 @@ class App extends React.Component<AppProps, AppState> {
     // if (faceDetection)
     //   await faceapi.loadTinyFaceDetectorModel('/resources/face-detector-models');
 
-    // if (info)
-    //   window.SHOW_INFO = true;
+    if (info) {
+      window.SHOW_INFO = true;
+    }
 
-    // if (throttleSecret)
-    //   window.NETWORK_THROTTLE_SECRET = throttleSecret;
+    if (throttleSecret) {
+      window.NETWORK_THROTTLE_SECRET = throttleSecret;
+    }
 
     if (!roomId) {
       roomId = GetRandomString();
@@ -111,6 +113,7 @@ class App extends React.Component<AppProps, AppState> {
         case 'consume':
         case 'forceH264':
         case 'forceVP9':
+        case 'forceTcp':
         case 'svc':
         case 'datachannel':
         case 'info':
