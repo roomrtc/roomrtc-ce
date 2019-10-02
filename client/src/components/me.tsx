@@ -194,7 +194,7 @@ class Me extends React.Component {
     this._mounted = false;
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.me.displayNameSet) {
       ReactTooltip.hide(this._rootNode);
     }

@@ -3,12 +3,6 @@ import protoo from 'protoo-server';
 import throttle from '@sitespeed.io/throttle';
 import { getDebugLogger } from '@kites/core/logger';
 
-// const protoo = require('protoo-server');
-// const throttle = require('@sitespeed.io/throttle');
-// const Logger = require('./Logger');
-// const config = require('../config');
-// const Bot = require('./Bot');
-
 import { Bot } from './bot';
 
 const logger = getDebugLogger('roomrtc:Room');

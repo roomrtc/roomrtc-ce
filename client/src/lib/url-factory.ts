@@ -5,9 +5,10 @@ if (window.location.hostname === 'test.roomrtc.com') {
 }
 
 export function getProtooUrl({ roomId, peerId, forceH264, forceVP9 }) {
-  // const hostname = window.location.hostname;
-  // let url = `wss://${hostname}:${protooPort}/?roomId=${roomId}&peerId=${peerId}`;
-  let url = `wss://v3demo.mediasoup.org:4443/?roomId=${roomId}&peerId=${peerId}`;
+  const hostname = window.location.hostname;
+  const port = window.location.port;
+  let url = `ws://${hostname}:${port}/?roomId=${roomId}&peerId=${peerId}`;
+  // let url = `wss://v3demo.mediasoup.org:4443/?roomId=${roomId}&peerId=${peerId}`;
   // let url = `/ws/?roomId=${roomId}&peerId=${peerId}`;
 
   if (forceH264) {

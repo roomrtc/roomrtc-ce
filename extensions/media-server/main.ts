@@ -35,7 +35,7 @@ async function runMediasoupWorkers(kites: KitesInstance, config: any) {
   const { logLevel, logTags, rtcMinPort, rtcMaxPort } = config.worker;
 
   const libmediasoup = 'mediasoup';
-  const mediasoup = await import(libmediasoup);
+  const mediasoup = await import('mediasoup');
   kites.logger.info('Running (%d) mediasoup workers ...', numWorkers);
 
   for (let i = 0; i < numWorkers; i++) {
@@ -139,6 +139,8 @@ async function getOrCreateRoom({ kites, roomId, forceH264 = false, forceVP9 = fa
 
     const mediasoupWorker = getMediasoupWorker();
     const { routerOptions, webRtcTransportOptions, plainRtpTransportOptions } = kites.options.mediasoup;
+
+    console.log('Router options WWWWWWWWWWW: ', kites.options.mediasoup, routerOptions);
 
     room = await Room.create({
       mediasoupWorker,
