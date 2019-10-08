@@ -1900,7 +1900,7 @@ export default class RoomClient {
       //
       // Just get access to the mic and DO NOT close the mic track for a while.
       // Super hack!
-      {
+      if (this._produce) {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         const audioTrack = stream.getAudioTracks()[0];
 
