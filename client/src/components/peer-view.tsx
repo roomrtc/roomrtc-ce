@@ -109,63 +109,69 @@ export default class PeerView extends React.Component {
           </div>
 
           <div className={classnames('box', { visible: showInfo })}>
-            <If condition={audioProducerId || audioConsumerId}>
-              <h1>audio</h1>
+            {(audioProducerId || audioConsumerId) && (
+              <div>
+                <h1>audio</h1>
+                {audioProducerId && (
+                  // Audio producer info
+                  <div>
+                  <p>
+                    {'id: '}
+                    <span
+                      className='copiable'
+                      data-tip='Copy audio producer id to clipboard'
+                      onClick={() => clipboardCopy(`"${audioProducerId}"`)}
+                    >
+                      {audioProducerId}
+                    </span>
+                  </p>
 
-              <If condition={audioProducerId}>
-                <p>
-                  {'id: '}
-                  <span
-                    className='copiable'
-                    data-tip='Copy audio producer id to clipboard'
-                    onClick={() => clipboardCopy(`"${audioProducerId}"`)}
-                  >
-                    {audioProducerId}
-                  </span>
-                </p>
+                  <ReactTooltip
+                    type='light'
+                    effect='solid'
+                    delayShow={1500}
+                    delayHide={50}
+                  />
+                  </div>
+                )}
 
-                <ReactTooltip
-                  type='light'
-                  effect='solid'
-                  delayShow={1500}
-                  delayHide={50}
-                />
-              </If>
+              {audioConsumerId && (
+                // Audio consumer info
+                <div>
+                  <p>
+                    {'id: '}
+                    <span
+                      className='copiable'
+                      data-tip='Copy video producer id to clipboard'
+                      onClick={() => clipboardCopy(`"${audioConsumerId}"`)}
+                    >
+                      {audioConsumerId}
+                    </span>
+                  </p>
 
-              <If condition={audioConsumerId}>
-                <p>
-                  {'id: '}
-                  <span
-                    className='copiable'
-                    data-tip='Copy video producer id to clipboard'
-                    onClick={() => clipboardCopy(`"${audioConsumerId}"`)}
-                  >
-                    {audioConsumerId}
-                  </span>
-                </p>
-
-                <ReactTooltip
-                  type='light'
-                  effect='solid'
-                  delayShow={1500}
-                  delayHide={50}
-                />
-              </If>
-
-              <If condition={audioCodec}>
+                  <ReactTooltip
+                    type='light'
+                    effect='solid'
+                    delayShow={1500}
+                    delayHide={50}
+                  />
+                </div>
+              )}
+              {audioCodec && (
                 <p>codec: {audioCodec}</p>
-              </If>
+              )}
+              {audioProducerId && audioScore && (
+                // print producer score
+                this._printProducerScore(audioProducerId, audioScore)
+              )}
+              {audioConsumerId && audioScore && (
+                // print consumer score
+                this._printConsumerScore(audioConsumerId, audioScore)
+              )}
+              </div>
+            )}
 
-              <If condition={audioProducerId && audioScore}>
-                {this._printProducerScore(audioProducerId, audioScore)}
-              </If>
-
-              <If condition={audioConsumerId && audioScore}>
-                {this._printConsumerScore(audioConsumerId, audioScore)}
-              </If>
-            </If>
-
-            <If condition={videoProducerId || videoConsumerId}>
+            {/* <If condition={videoProducerId || videoConsumerId}>
               <h1>video</h1>
 
               <If condition={videoProducerId}>
@@ -349,7 +355,7 @@ export default class PeerView extends React.Component {
               <If condition={videoConsumerId && videoScore}>
                 {this._printConsumerScore(videoConsumerId, videoScore)}
               </If>
-            </If>
+            </If> */}
           </div>
 
           <div className={classnames('peer', { 'is-me': isMe })}>

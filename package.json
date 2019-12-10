@@ -7,7 +7,6 @@
     "start": "cross-env NODE_ENV=development webpack --watch",
     "start:server": "nodemon build/server/app.js",
     "start:prod": "node dist/app.js",
-    "install:peers": "npm-install-peers",
     "clean": "rimraf -rf build dist",
     "build": "gulp css && webpack"
   },
@@ -62,7 +61,6 @@
     "nib": "^1.1.2",
     "nodemon": "^1.19.2",
     "nodemon-webpack-plugin": "^4.1.1",
-    "npm-install-peers": "^1.2.1",
     "prop-types": "^15.7.2",
     "react-draggable": "^4.0.3",
     "react-spinner": "^0.2.7",
@@ -93,6 +91,7 @@
     "awaitqueue": "^1.0.0",
     "dgram": "^1.0.1",
     "jsonwebtoken": "^8.5.1",
+    "mediasoup": "^3.4.1",
     "mediasoup-client": "^3.2.6",
     "mkdirp": "^0.5.1",
     "mongoose": "^5.6.11",
