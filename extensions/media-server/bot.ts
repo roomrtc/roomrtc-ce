@@ -4,13 +4,15 @@ import sctp from 'sctp';
 import { getDebugLogger } from '@kites/core/logger';
 import { AddressInfo } from 'net';
 
-const logger = getDebugLogger('RoomRTC:Bot');
+const logger = getDebugLogger('roomrtc:Bot');
 
 // Set node-sctp default PMTU to 1200.
 sctp.defaults({ PMTU: 1200 });
 
 class Bot {
   static async create({ mediasoupRouter }) {
+    logger.info('preparing sctp.connect() ...');
+
     // Create a PlainRtpTransport for connecting the bot.
     // Assume no more than 256 participants.
     const transport = await mediasoupRouter.createPlainRtpTransport(
@@ -41,6 +43,7 @@ class Bot {
     // Use UDP connected socket if Node >= 12.
     const udpSocketConnect = (udpSocket as any).connect;
     if (typeof udpSocketConnect === 'function') {
+      logger.debug('Use UDP connected socket if Node >= 12.');
       await new Promise((resolve, reject) => {
         udpSocketConnect(remoteUdpPort, remoteUdpIp, (error) => {
           if (error) {
@@ -48,6 +51,8 @@ class Bot {
 
             reject(error);
             return;
+          } else {
+            logger.info('UDP socket connect() ok!');
           }
 
           sctpSocket = sctp.connect(
@@ -77,6 +82,8 @@ class Bot {
           },
         });
     }
+
+    logger.info('sctp.connect() ok!');
 
     // Create a SCTP outgoing stream with id 1 (since id 0 is already used
     // by the implicit SCTP outgoing stream built-in the SCTP socket).
