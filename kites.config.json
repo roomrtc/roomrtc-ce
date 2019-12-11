@@ -1,4 +1,9 @@
 {
+  "tls": {
+    "port": 3443,
+    "cert": "docs/cert/server.crt",
+    "key": "docs/cert/server.key"
+  },
   "extensionsLocationCache": true,
   "logger": {
     "console": {

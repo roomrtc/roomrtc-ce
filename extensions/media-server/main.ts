@@ -2,7 +2,9 @@ import { KitesInstance } from '@kites/core';
 import { Express } from '@kites/express';
 
 import url from 'url';
+import * as fs from 'fs';
 import { platform, cpus } from 'os';
+import { createServer as createHttpsServer, Server as HttpsServer } from 'https';
 import protoo from 'protoo-server';
 import AwaitQueue from 'awaitqueue';
 import { Room } from './room';
@@ -26,6 +28,29 @@ const rooms = new Map<string, Room>();
 // Index of next mediasoup Worker to use.
 // @type {Number}
 let nextMediasoupWorkerIdx = 0;
+
+let httpsServer: HttpsServer;
+
+async function runHttpsServer(kites: KitesInstance) {
+  const expressApp = kites.express.app;
+  if (!kites.options.tls || kites.options.tls.enabled === false) {
+    return;
+  }
+  const { port, cert, key } = kites.options.tls;
+  kites.logger.info('starting https server: %s, %s, %s', port, cert, key);
+
+  const tls = {
+    cert: fs.readFileSync(kites.defaultPath(cert)),
+    key: fs.readFileSync(kites.defaultPath(key)),
+  };
+
+  httpsServer = createHttpsServer(tls, expressApp);
+  await new Promise((resolve) => {
+    httpsServer.listen(
+      Number(port), resolve);
+  });
+
+}
 
 /**
  * Launch as many mediasoup Workers as given in the configuration file.
@@ -64,8 +89,12 @@ async function runMediasoupWorkers(kites: KitesInstance, config: any) {
  * Create a protoo WebSocketServer to allow WebSocket connections from browsers.
  */
 async function runProtooWebSocketServer(kites: KitesInstance, config: any) {
-  const httpServer = kites.express.server;
-  kites.logger.info('running protoo WebSocketServer...');
+  let httpServer;
+  if (!httpsServer) {
+    httpServer = kites.express.server;
+  } else {
+    httpServer = httpsServer;
+  }
 
   // Create the protoo WebSocket server.
   protooWebSocketServer = new protoo.WebSocketServer(httpServer,
@@ -172,6 +201,9 @@ function MediaServer(kites: KitesInstance) {
   if (type === 'linux') {
     kites.on('express:config', async (app: Express) => {
       kites.logger.info('Initialize mediasoup Workers ...');
+
+      // start https server
+      await runHttpsServer(kites);
 
       // start mediasoup workers
       await runMediasoupWorkers(kites, kites.options.mediasoup);
