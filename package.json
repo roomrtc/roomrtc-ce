@@ -83,10 +83,10 @@
     "mediasoup": "^3.2.5"
   },
   "dependencies": {
-    "@kites/common": "^1.1.8",
-    "@kites/core": "^1.1.8",
-    "@kites/express": "^1.1.8",
-    "@kites/rest": "^1.1.8",
+    "@kites/common": "^1.1.10",
+    "@kites/core": "^1.1.10",
+    "@kites/express": "^1.1.10",
+    "@kites/rest": "^1.1.10",
     "@sitespeed.io/throttle": "^0.5.4",
     "awaitqueue": "^1.0.0",
     "dgram": "^1.0.1",

@@ -21,7 +21,7 @@ let protooWebSocketServer;
 
 // Map of Room instances indexed by roomId.
 // @type {Map<Number, Room>}
-const rooms = new Map();
+const rooms = new Map<string, Room>();
 
 // Index of next mediasoup Worker to use.
 // @type {Number}
@@ -79,15 +79,15 @@ async function runProtooWebSocketServer(kites: KitesInstance, config: any) {
   // Handle connections from clients.
   protooWebSocketServer.on('connectionrequest', (info, accept, reject) => {
     // The client indicates the roomId and peerId in the URL query.
-    const u = url.parse(info.request.url, true);
-    const roomId = u.query.roomId;
-    const peerId = u.query.peerId;
-    const forceH264 = u.query.forceH264 === 'true';
-    const forceVP9 = u.query.forceVP9 === 'true';
+    const roomUrl = url.parse(info.request.url, true);
+    const roomId = roomUrl.query.roomId;
+    const peerId = roomUrl.query.peerId;
+    const consume = roomUrl.query.consume;
+    const forceH264 = roomUrl.query.forceH264 === 'true';
+    const forceVP9 = roomUrl.query.forceVP9 === 'true';
 
     if (!roomId || !peerId) {
       reject(400, 'Connection request without roomId and/or peerId');
-
       return;
     }
 
@@ -104,9 +104,11 @@ async function runProtooWebSocketServer(kites: KitesInstance, config: any) {
       // Accept the protoo WebSocket connection.
       const protooWebSocketTransport = accept();
 
-      room.handleProtooConnection({ peerId, protooWebSocketTransport });
+      room.handleProtooConnection({ peerId, consume, protooWebSocketTransport });
+      kites.logger.info('getOrCreateRoom ok: ' + roomId);
     })
       .catch((error) => {
+        // console.error('ErrorE::', error);
         kites.logger.error('room creation or room joining failed:%o', error);
 
         reject(error);
@@ -140,11 +142,12 @@ async function getOrCreateRoom({ kites, roomId, forceH264 = false, forceVP9 = fa
     const mediasoupWorker = getMediasoupWorker();
     const { routerOptions, webRtcTransportOptions, plainRtpTransportOptions } = kites.options.mediasoup;
 
-    console.log('Router options WWWWWWWWWWW: ', kites.options.mediasoup, routerOptions);
+    // console.log('Router options WWWWWWWWWWW: ', kites.options.mediasoup);
 
     room = await Room.create({
       mediasoupWorker,
-      roomId, forceH264,
+      roomId,
+      forceH264,
       forceVP9,
       routerOptions,
       webRtcTransportOptions,

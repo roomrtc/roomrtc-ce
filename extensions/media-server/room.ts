@@ -296,6 +296,8 @@ class Room extends EventEmitter {
         }
       }
     });
+
+    return peer;
   }
 
   getRouterRtpCapabilities() {
@@ -1337,7 +1339,11 @@ class Room extends EventEmitter {
   /**
    * Helper to get the list of joined protoo peers.
    */
-  _getJoinedPeers(exclude?: { excludePeer: any }) {
+  _getJoinedPeers(exclude?: { excludePeer?: any }) {
+    if (!exclude) {
+      // ensure exclude is not null
+      exclude = {};
+    }
     const { excludePeer } = exclude;
     return this.protooRoom.peers
       .filter((peer) => peer.data.joined && peer !== excludePeer);
