@@ -43,8 +43,8 @@
   "mediasoup": {
     "numWorkers": 0,
     "worker": {
-      "rtcMinPort": 10000,
-      "rtcMaxPort": 10100,
+      "rtcMinPort": 40000,
+      "rtcMaxPort": 49999,
       "logLevel": "warn",
       "logTags": [
         "info",
@@ -52,7 +52,13 @@
         "dtls",
         "rtp",
         "srtp",
-        "rtcp"
+        "rtcp",
+        "rtx",
+        "bwe",
+        "score",
+        "simulcast",
+        "svc",
+        "sctp"
       ]
     },
     "routerOptions": {
@@ -69,16 +75,56 @@
           "parameters": {
             "x-google-start-bitrate": 1000
           }
+        },
+        {
+          "kind": "video",
+          "mimeType": "video/VP9",
+          "clockRate": 90000,
+          "parameters": {
+            "profile-id": 2,
+            "x-google-start-bitrate": 1000
+          }
+        },
+        {
+          "kind": "video",
+          "mimeType": "video/h264",
+          "clockRate": 90000,
+          "parameters": {
+            "packetization-mode": 1,
+            "profile-level-id": "4d0032",
+            "level-asymmetry-allowed": 1,
+            "x-google-start-bitrate": 1000
+          }
+        },
+        {
+          "kind": "video",
+          "mimeType": "video/h264",
+          "clockRate": 90000,
+          "parameters": {
+            "packetization-mode": 1,
+            "profile-level-id": "42e01f",
+            "level-asymmetry-allowed": 1,
+            "x-google-start-bitrate": 1000
+          }
         }
       ]
     },
     "webRtcTransportOptions": {
       "listenIps": [{
-        "ip": "127.0.0.1",
+        "ip": "10.2.10.169",
         "announcedIp": null
       }],
       "maxIncomingBitrate": 1500000,
-      "initialAvailableOutgoingBitrate": 1000000
+      "initialAvailableOutgoingBitrate": 1000000,
+      "minimumAvailableOutgoingBitrate": 600000,
+      "maxSctpMessageSize": 262144
+    },
+    "plainRtpTransportOptions": {
+      "listenIp": {
+        "ip": "10.2.10.169",
+        "announcedIp": null
+      },
+      "maxSctpMessageSize": 262144
     }
   }
 }
