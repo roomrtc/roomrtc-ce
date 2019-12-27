@@ -94,7 +94,7 @@
     "mediasoup": "^3.4.1",
     "mediasoup-client": "^3.2.6",
     "mkdirp": "^0.5.1",
-    "mongoose": "^5.6.11",
+    "mongoose": "^5.7.5",
     "multer": "^1.4.2",
     "pokemon": "github:vunb/pokemon#fix-webpack",
     "protoo-client": "^4.0.3",
