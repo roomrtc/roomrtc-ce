@@ -1,15 +1,13 @@
-import webpack from 'webpack';
 import path from 'path';
+import webpack from 'webpack';
 import nodeExternals from 'webpack-node-externals';
-import WebpackShellPlugin from 'webpack-shell-plugin';
+import NodemonPlugin from 'nodemon-webpack-plugin';
+import statements from 'tsx-control-statements';
 
 const config = {
   mode: 'development',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new WebpackShellPlugin({
-      onBuildEnd: ['npm run start:server'],
-    }),
   ],
   module: {
     rules: [{
@@ -29,8 +27,18 @@ const client = Object.assign({}, config, {
   target: 'web',
   entry: path.resolve(__dirname, 'client/src/client-entry.tsx'),
   output: {
-    filename: 'client.js',
-    path: path.resolve(__dirname, 'build/assets'),
+    filename: 'app.js',
+    path: path.resolve(__dirname, 'build/client'),
+  },
+  module: {
+    rules: [{
+      test: /\.tsx?$/,
+      loader: 'ts-loader',
+      // loader: 'awesome-typescript-loader',
+      options: {
+        getCustomTransformers: () => ({ before: [statements()] }),
+      },
+    }],
   },
 });
 
@@ -40,9 +48,13 @@ const server = Object.assign({}, config, {
   externals: [nodeExternals()],
   entry: path.resolve(__dirname, 'app.ts'),
   output: {
-    filename: 'server.js',
-    path: path.resolve(__dirname, 'build'),
+    filename: 'app.js',
+    path: path.resolve(__dirname, 'build/server'),
   },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new NodemonPlugin(),
+  ],
 });
 
 module.exports = [client, server];

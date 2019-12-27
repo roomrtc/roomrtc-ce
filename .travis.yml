@@ -1,4 +1,5 @@
 language: node_js
+cache: npm
 
 git:
   depth: 5
@@ -12,6 +13,7 @@ before_install:
 
 install:
   - npm ci
+  # - npm run install:peers
 
 jobs:
   include:

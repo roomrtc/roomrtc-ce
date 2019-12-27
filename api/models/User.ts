@@ -8,7 +8,7 @@ import * as jwt from 'jsonwebtoken';
     if (this.isModified('password') || this.isNew) {
       // let salt = await bcrypt.genSalt( 10 );
       // let hash = await bcrypt.hash( this.password, salt, null );
-      this.password = 'hash';
+      this.password = 'todo:hash';
     }
     return next();
   } catch (error) {

@@ -1,3 +1,3 @@
 export * from './app-routes';
-export * from './mongodb-server-dev';
-export * from './media-server';
+export * from './get-db-connection';
+export * from './media-server/main';
