@@ -74,7 +74,7 @@
     "tslint": "^5.18.0",
     "tsx-control-statements": "^2.16.1",
     "typescript": "^3.5.3",
-    "url-parse": "^1.4.7",
+    "url-parse": "^1.5.8",
     "webpack": "^4.40.2",
     "webpack-cli": "^3.3.9",
     "webpack-node-externals": "^1.7.2"
